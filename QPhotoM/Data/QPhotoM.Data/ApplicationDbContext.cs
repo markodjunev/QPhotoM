@@ -31,6 +31,8 @@
 
         public DbSet<Search> Searches { get; set; }
 
+        public DbSet<Follow> Follows { get; set; }
+
         public DbSet<Setting> Settings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
