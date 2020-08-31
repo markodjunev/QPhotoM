@@ -17,6 +17,7 @@ namespace QPhotoM.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Posts = new HashSet<Post>();
             this.LikedPosts = new HashSet<LikePost>();
+            this.Searches = new HashSet<Search>();
         }
 
         public string ProfilePhotoUrl { get; set; }
@@ -36,6 +37,8 @@ namespace QPhotoM.Data.Models
         public virtual ICollection<Post> Posts { get; set; }
 
         public virtual ICollection<LikePost> LikedPosts { get; set; }
+
+        public virtual ICollection<Search> Searches { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

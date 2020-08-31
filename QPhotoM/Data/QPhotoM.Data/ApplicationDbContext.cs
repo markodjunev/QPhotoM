@@ -29,6 +29,8 @@
 
         public DbSet<LikePost> LikePosts { get; set; }
 
+        public DbSet<Search> Searches { get; set; }
+
         public DbSet<Setting> Settings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
