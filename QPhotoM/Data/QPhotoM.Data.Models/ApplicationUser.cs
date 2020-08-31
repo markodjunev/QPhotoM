@@ -4,9 +4,8 @@ namespace QPhotoM.Data.Models
     using System;
     using System.Collections.Generic;
 
-    using QPhotoM.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using QPhotoM.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -16,7 +15,12 @@ namespace QPhotoM.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.Posts = new HashSet<Post>();
         }
+
+        public string ProfilePhotoUrl { get; set; }
+
+        public string Description { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
@@ -27,6 +31,8 @@ namespace QPhotoM.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public virtual ICollection<Post> Posts { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
