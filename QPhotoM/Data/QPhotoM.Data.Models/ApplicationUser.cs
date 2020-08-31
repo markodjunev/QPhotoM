@@ -16,6 +16,7 @@ namespace QPhotoM.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Posts = new HashSet<Post>();
+            this.LikedPosts = new HashSet<LikePost>();
         }
 
         public string ProfilePhotoUrl { get; set; }
@@ -33,6 +34,8 @@ namespace QPhotoM.Data.Models
         public DateTime? DeletedOn { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
+
+        public virtual ICollection<LikePost> LikedPosts { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
