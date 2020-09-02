@@ -2,17 +2,7 @@
 {
     using System.Reflection;
 
-    using QPhotoM.Data;
-    using QPhotoM.Data.Common;
-    using QPhotoM.Data.Common.Repositories;
-    using QPhotoM.Data.Models;
-    using QPhotoM.Data.Repositories;
-    using QPhotoM.Data.Seeding;
-    using QPhotoM.Services.Data;
-    using QPhotoM.Services.Mapping;
-    using QPhotoM.Services.Messaging;
-    using QPhotoM.Web.ViewModels;
-
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -20,6 +10,17 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using QPhotoM.Data;
+    using QPhotoM.Data.Common;
+    using QPhotoM.Data.Common.Repositories;
+    using QPhotoM.Data.Models;
+    using QPhotoM.Data.Repositories;
+    using QPhotoM.Data.Seeding;
+    using QPhotoM.Services.Data;
+    using QPhotoM.Services.Data.Interfaces;
+    using QPhotoM.Services.Mapping;
+    using QPhotoM.Services.Messaging;
+    using QPhotoM.Web.ViewModels;
 
     public class Startup
     {
@@ -59,6 +60,17 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
+
+            // Add Cloudinary account
+            Account account = new Account(
+                             this.configuration["Cloudinary:AppName"],
+                             this.configuration["Cloudinary:AppKey"],
+                             this.configuration["Cloudinary:AppSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
