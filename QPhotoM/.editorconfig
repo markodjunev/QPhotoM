@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# SA1201: Elements should appear in the correct order
+dotnet_diagnostic.SA1201.severity = silent
+
+# SA1117: Parameters should be on same line or separate lines
+dotnet_diagnostic.SA1117.severity = silent
