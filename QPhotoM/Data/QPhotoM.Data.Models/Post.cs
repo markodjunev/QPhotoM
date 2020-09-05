@@ -10,6 +10,7 @@
     {
         public Post()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.Comments = new HashSet<Comment>();
             this.Likes = new HashSet<LikePost>();
         }

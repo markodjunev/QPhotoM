@@ -25,4 +25,8 @@
     <ProjectReference Include="..\..\Services\QPhotoM.Services.Mapping\QPhotoM.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Posts\OutputViewModels\" />
+  </ItemGroup>
+
 </Project>
