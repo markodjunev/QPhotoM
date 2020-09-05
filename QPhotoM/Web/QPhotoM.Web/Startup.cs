@@ -62,6 +62,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IPostsService, PostsService>();
+            services.AddTransient<IApplicationUsersService, ApplicationUsersService>();
 
             // Add Cloudinary account
             Account account = new Account(

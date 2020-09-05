@@ -11,6 +11,7 @@
     using QPhotoM.Data.Models;
     using QPhotoM.Services.Data.Interfaces;
     using QPhotoM.Web.ViewModels.Posts.InputModels;
+    using QPhotoM.Web.ViewModels.Posts.OutputViewModels;
 
     [Authorize]
     public class PostsController : BaseController
@@ -18,22 +19,45 @@
         private readonly IPostsService postsService;
         private readonly ICloudinaryService cloudinaryService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IApplicationUsersService usersService;
 
-        public PostsController(IPostsService postsService, ICloudinaryService cloudinaryService, UserManager<ApplicationUser> userManager)
+        public PostsController(IPostsService postsService, ICloudinaryService cloudinaryService,
+            UserManager<ApplicationUser> userManager, IApplicationUsersService usersService)
         {
             this.postsService = postsService;
             this.cloudinaryService = cloudinaryService;
             this.userManager = userManager;
+            this.usersService = usersService;
         }
 
-        [Authorize]
+        public IActionResult ById(string id)
+        {
+            var post = this.postsService.GetById(id);
+
+            if (post == null)
+            {
+                return this.RedirectToAction("Error", "Home");
+            }
+
+            var result = new PostByIdViewModel
+            {
+                Id = post.Id,
+                Description = post.Description,
+                PhotoUrl = post.PhotoUrl,
+                CreatedOn = post.CreatedOn,
+            };
+
+            result.User = this.usersService.GetUserByIdInPost(post.CreatorId);
+
+            return this.View(result);
+        }
+
         public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create(PostCreateInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);

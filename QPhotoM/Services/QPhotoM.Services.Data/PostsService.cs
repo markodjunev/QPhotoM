@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -29,6 +30,13 @@
 
             await this.postsRepository.AddAsync(post);
             await this.postsRepository.SaveChangesAsync();
+        }
+
+        public Post GetById(string id)
+        {
+            var post = this.postsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+
+            return post;
         }
     }
 }

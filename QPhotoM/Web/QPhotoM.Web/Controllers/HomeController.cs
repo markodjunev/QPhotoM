@@ -2,9 +2,8 @@
 {
     using System.Diagnostics;
 
-    using QPhotoM.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+    using QPhotoM.Web.ViewModels;
 
     public class HomeController : BaseController
     {
