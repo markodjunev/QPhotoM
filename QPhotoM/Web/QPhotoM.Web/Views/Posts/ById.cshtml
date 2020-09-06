@@ -1,4 +1,7 @@
 ﻿@model QPhotoM.Web.ViewModels.Posts.OutputViewModels.PostByIdViewModel
+@using Microsoft.AspNetCore.Identity
+@using QPhotoM.Data.Models
+@inject UserManager<ApplicationUser> userManager
 @{
     ViewData["Title"] = "Post";
 }
@@ -29,6 +32,7 @@
                     <i class="fas fa-calendar-alt"><time datetime="@Model.CreatedOn.ToString("O")"></time></i>
                 </div>
             </div>
+            <div class="text-wrap text-break" style="width: 30rem;">@Html.Raw(Model.SanitizedDescription)</div>
         }
         else
         {
@@ -38,8 +42,15 @@
                 </div>
             </div>
         }
+    </div>
 
-        <div class="text-wrap text-break" style="width: 30rem;">@Html.Raw(Model.SanitizedDescription)</div>
-
+    <div class="col-md-3">
+        @if (Model.User.Id == this.userManager.GetUserId(this.User))
+        {
+            <div class="d-flex justify-content-between mt-2">
+                <a asp-controller="Posts" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete post</a>
+                <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary">Edit post</a>
+            </div>
+        }
     </div>
 </div>

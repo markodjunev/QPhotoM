@@ -25,6 +25,7 @@
 
             var result = new ApplicationUserPostById()
             {
+                Id = user.Id,
                 UserName = user.UserName,
                 ProfilePhotoUrl = user.ProfilePhotoUrl,
             };
