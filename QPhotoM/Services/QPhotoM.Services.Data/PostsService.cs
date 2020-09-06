@@ -32,6 +32,12 @@
             await this.postsRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(Post post)
+        {
+            this.postsRepository.Delete(post);
+            await this.postsRepository.SaveChangesAsync();
+        }
+
         public Post GetById(string id)
         {
             var post = this.postsRepository.All().Where(x => x.Id == id).FirstOrDefault();

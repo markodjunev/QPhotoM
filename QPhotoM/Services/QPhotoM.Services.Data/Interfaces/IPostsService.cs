@@ -12,5 +12,7 @@
         Task CreateAsync(string description, string photoUrl, string creatorId);
 
         Post GetById(string id);
+
+        Task DeleteAsync(Post post);
     }
 }

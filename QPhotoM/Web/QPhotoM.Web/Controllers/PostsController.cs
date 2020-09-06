@@ -71,5 +71,19 @@
             await this.postsService.CreateAsync(input.Description, photoUrl, user.Id);
             return this.RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            var post = this.postsService.GetById(id);
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (post == null || user.Id != post.CreatorId)
+            {
+                return this.RedirectToAction("Error", "Home");
+            }
+
+            await this.postsService.DeleteAsync(post);
+            return this.RedirectToAction("Index", "Home");
+        }
     }
 }
