@@ -9,6 +9,7 @@
     using QPhotoM.Data.Common.Repositories;
     using QPhotoM.Data.Models;
     using QPhotoM.Services.Data.Interfaces;
+    using QPhotoM.Web.ViewModels.Posts.InputModels;
 
     public class PostsService : IPostsService
     {
@@ -35,6 +36,16 @@
         public async Task DeleteAsync(Post post)
         {
             this.postsRepository.Delete(post);
+            await this.postsRepository.SaveChangesAsync();
+        }
+
+        public async Task EditAsync(PostEditInputModel input, string id)
+        {
+            var post = this.GetById(id);
+
+            post.Description = input.Description;
+
+            this.postsRepository.Update(post);
             await this.postsRepository.SaveChangesAsync();
         }
 

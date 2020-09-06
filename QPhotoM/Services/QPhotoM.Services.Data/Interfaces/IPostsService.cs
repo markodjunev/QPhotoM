@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using QPhotoM.Data.Models;
+    using QPhotoM.Web.ViewModels.Posts.InputModels;
 
     public interface IPostsService
     {
@@ -14,5 +15,7 @@
         Post GetById(string id);
 
         Task DeleteAsync(Post post);
+
+        Task EditAsync(PostEditInputModel input, string id);
     }
 }

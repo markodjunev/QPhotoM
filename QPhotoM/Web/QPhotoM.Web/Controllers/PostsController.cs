@@ -85,5 +85,35 @@
             await this.postsService.DeleteAsync(post);
             return this.RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            var post = this.postsService.GetById(id);
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (post == null || user.Id != post.CreatorId)
+            {
+                return this.RedirectToAction("Error", "Home");
+            }
+
+            var model = new PostEditInputModel
+            {
+                Description = post.Description,
+            };
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(PostEditInputModel input, string id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.postsService.EditAsync(input, id);
+            return this.RedirectToAction("ById", "Posts", new { area = string.Empty, id = id });
+        }
     }
 }
